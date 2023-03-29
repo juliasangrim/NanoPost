@@ -26,28 +26,17 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/iconButton"
-            style="?attr/materialIconButtonStyle"
+            style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginVertical="16dp"
             android:layout_marginEnd="16dp"
-            app:icon="@drawable/baseline_chevron_right_24"
+            app:icon="@drawable/ic_chevron_right"
             app:iconGravity="textStart"
             app:iconTint="@color/md_theme_dark_onSurface"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/textViewImagesTitle"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:weightSum="4"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-
-            app:layout_constraintTop_toBottomOf="@+id/textViewImagesTitle">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imageViewFirst"
@@ -55,7 +44,14 @@
                 android:layout_height="80dp"
                 android:layout_weight="1"
                 app:shapeAppearance="@style/RoundedCornerImage"
-                tools:background="@drawable/media" />
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="16dp"
+                tools:background="@drawable/media"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewImagesTitle"
+                app:layout_constraintEnd_toStartOf="@id/imageViewSecond"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imageViewSecond"
@@ -64,6 +60,10 @@
                 android:layout_marginHorizontal="8dp"
                 android:layout_weight="1"
                 app:shapeAppearance="@style/RoundedCornerImage"
+                app:layout_constraintStart_toEndOf="@id/imageViewFirst"
+                app:layout_constraintTop_toBottomOf="@id/textViewImagesTitle"
+                app:layout_constraintEnd_toStartOf="@id/imageViewThird"
+                app:layout_constraintBottom_toBottomOf="parent"
                 tools:background="@drawable/media" />
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -72,6 +72,10 @@
                 android:layout_height="80dp"
                 android:layout_weight="1"
                 app:shapeAppearance="@style/RoundedCornerImage"
+                app:layout_constraintStart_toEndOf="@id/imageViewSecond"
+                app:layout_constraintTop_toBottomOf="@id/textViewImagesTitle"
+                app:layout_constraintEnd_toStartOf="@id/imageViewFourth"
+                app:layout_constraintBottom_toBottomOf="parent"
                 tools:background="@drawable/media" />
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -79,10 +83,14 @@
                 android:layout_width="0dp"
                 android:layout_height="80dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
                 android:layout_weight="1"
                 app:shapeAppearance="@style/RoundedCornerImage"
+                app:layout_constraintStart_toEndOf="@id/imageViewThird"
+                app:layout_constraintTop_toBottomOf="@id/textViewImagesTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 tools:background="@drawable/media" />
-        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

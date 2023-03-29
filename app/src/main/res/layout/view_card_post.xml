@@ -83,7 +83,7 @@
             android:layout_margin="16dp"
             android:gravity="start|center_vertical"
             android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-            app:icon="@drawable/favorite"
+            app:icon="@drawable/ic_favorite"
             app:iconPadding="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
