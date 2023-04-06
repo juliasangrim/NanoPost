@@ -35,9 +35,11 @@
             tools:text="@string/test_profile_name" />
 
         <TextView
+            android:id="@+id/textViewData"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="4dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:textAppearance="@style/TextAppearance.Material3.BodySmall"
@@ -77,11 +79,14 @@
             tools:background="@drawable/media" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+            android:id="@+id/buttonLike"
+            style="@style/BorderedButton"
             android:layout_width="@dimen/like_button_width"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:gravity="start|center_vertical"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingHorizontal="16dp"
             android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
             app:icon="@drawable/ic_favorite"
             app:iconPadding="8dp"

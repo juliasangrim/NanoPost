@@ -28,7 +28,6 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-            android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/imageViewProfile"
             app:layout_constraintTop_toTopOf="parent"
@@ -41,7 +40,6 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
             app:layout_constraintTop_toBottomOf="@id/textViewName"
@@ -56,84 +54,83 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageViewProfile" />
 
-
-        <LinearLayout
-            android:id="@+id/linearLayoutCounterImages"
+        <TextView
+            android:id="@+id/textViewImageCounter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="14dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toStartOf="@id/linearLayoutCounterSubscribers"
+            android:layout_marginTop="14dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+            app:layout_constraintEnd_toStartOf="@id/textViewSubscribeCounter"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dividerProfile">
+            app:layout_constraintTop_toBottomOf="@+id/dividerProfile"
+            tools:text="@string/test_images_count" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
-                tools:text="@string/test_images_count" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/images"
-                android:textAppearance="@style/TextAppearance.Material3.LabelMedium" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayoutCounterSubscribers"
+        <TextView
+            android:id="@+id/textViewSubscribeCounter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="14dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toStartOf="@+id/linearLayoutCounterPosts"
-            app:layout_constraintStart_toEndOf="@id/linearLayoutCounterImages"
-            app:layout_constraintTop_toBottomOf="@id/dividerProfile">
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+            app:layout_constraintEnd_toStartOf="@id/textViewPostCounter"
+            app:layout_constraintStart_toEndOf="@id/textViewImageCounter"
+            app:layout_constraintTop_toBottomOf="@+id/dividerProfile"
+            tools:text="@string/test_subscribers_count" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
-                tools:text="@string/test_subscribers_count" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/subscribers"
-                android:textAppearance="@style/TextAppearance.Material3.LabelMedium" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayoutCounterPosts"
+        <TextView
+            android:id="@+id/textViewPostCounter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="14dp"
-            android:orientation="vertical"
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/linearLayoutCounterSubscribers"
-            app:layout_constraintTop_toBottomOf="@id/dividerProfile">
+            app:layout_constraintStart_toEndOf="@id/textViewSubscribeCounter"
+            app:layout_constraintTop_toBottomOf="@+id/dividerProfile"
+            tools:text="@string/test_post_count" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
-                tools:text="@string/test_post_count" />
+        <TextView
+            android:id="@+id/textViewImageSubtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/images"
+            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+            app:layout_constraintEnd_toStartOf="@id/textViewSubscribeSubtitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewImageCounter" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/posts"
-                android:textAppearance="@style/TextAppearance.Material3.LabelMedium" />
+        <TextView
+            android:id="@+id/textViewSubscribeSubtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/subscribers"
+            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+            app:layout_constraintEnd_toStartOf="@id/textViewPostSubtitle"
+            app:layout_constraintStart_toEndOf="@id/textViewImageSubtitle"
+            app:layout_constraintTop_toBottomOf="@id/textViewSubscribeCounter" />
 
-        </LinearLayout>
+        <TextView
+            android:id="@+id/textViewPostSubtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/posts"
+            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textViewSubscribeSubtitle"
+            app:layout_constraintTop_toBottomOf="@id/textViewPostCounter" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="textViewImageSubtitle, textViewSubscribeSubtitle,
+            textViewPostSubtitle"/>
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/dividerButton"
@@ -143,8 +140,7 @@
             android:layout_marginBottom="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linearLayoutCounterImages" />
-
+            app:layout_constraintTop_toTopOf="@id/barrier" />
 
         <Button
             style="@style/Widget.Material3.Button.TonalButton.Icon"
