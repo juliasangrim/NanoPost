@@ -34,6 +34,7 @@
             tools:text="@string/test_profile_name" />
 
         <TextView
+            android:id="@+id/textViewProfileSubtext"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
@@ -143,6 +144,7 @@
             app:layout_constraintTop_toTopOf="@id/barrier" />
 
         <Button
+            android:id="@+id/buttonEdit"
             style="@style/Widget.Material3.Button.TonalButton.Icon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
