@@ -7,7 +7,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_optimizationLevel="barrier">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageViewProfile"
@@ -131,7 +132,7 @@
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
             app:constraint_referenced_ids="textViewImageSubtitle, textViewSubscribeSubtitle,
-            textViewPostSubtitle"/>
+            textViewPostSubtitle" />
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/dividerButton"
