@@ -30,7 +30,7 @@
         tools:text="@string/test_profile_name" />
 
     <TextView
-        android:id="@+id/textViewData"
+        android:id="@+id/textViewDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"

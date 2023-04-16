@@ -2,34 +2,42 @@ package com.trubitsyna.homework.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
 import com.trubitsyna.homework.data.ImageCardData
 import com.trubitsyna.homework.databinding.ViewCardImagesBinding
-import com.trubitsyna.homework.diffcallback.ImageCardDiffCallback
 
-class ImageCardAdapter : ListAdapter<ImageCardData, ImageCardAdapter.ImageViewHolder>(
-    ImageCardDiffCallback()
-) {
+class ImageCardAdapter(
+    private var imageCardData: ImageCardData? = null
+): RecyclerView.Adapter<ImageCardAdapter.ImageViewHolder>() {
 
-    private lateinit var onClick: (List<String>) -> Unit
+    companion object {
+        private const val MAX_ITEM_COUNT = 1
+    }
 
-    fun setCallback(callback: (List<String>) -> Unit) {
+    private lateinit var onClick: (List<String>?) -> Unit
+
+    fun setCallback(callback: (List<String>?) -> Unit) {
         onClick = callback
+    }
+
+    fun setItem(item: ImageCardData) {
+        imageCardData = item
+        notifyDataSetChanged()
     }
 
     inner class ImageViewHolder(
         private val binding: ViewCardImagesBinding
     ) : ViewHolder(binding.root) {
-        fun bind(item: ImageCardData) {
+        fun bind(item: ImageCardData?) {
             with(binding) {
-                imageViewFirst.load(item.listImagesUrl[0])
-                imageViewSecond.load(item.listImagesUrl[1])
-                imageViewThird.load(item.listImagesUrl[2])
-                imageViewFourth.load(item.listImagesUrl[3])
+                imageViewFirst.load(item?.listImagesUrl?.get(0))
+                imageViewSecond.load(item?.listImagesUrl?.get(1))
+                imageViewThird.load(item?.listImagesUrl?.get(2))
+                imageViewFourth.load(item?.listImagesUrl?.get(3))
                 root.setOnClickListener {
-                    onClick(item.listImagesUrl)
+                    onClick(item?.listImagesUrl)
                 }
             }
         }
@@ -44,7 +52,9 @@ class ImageCardAdapter : ListAdapter<ImageCardData, ImageCardAdapter.ImageViewHo
         return ImageViewHolder(binding)
     }
 
+    override fun getItemCount(): Int = MAX_ITEM_COUNT
+
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(imageCardData)
     }
 }

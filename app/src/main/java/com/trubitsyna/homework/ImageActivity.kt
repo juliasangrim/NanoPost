@@ -19,9 +19,9 @@ class ImageActivity : AppCompatActivity() {
         private const val IMAGE_ARG_KEY = "IMAGE_ARG_KEY"
         private const val COLUMN_NUM = 3
 
-        fun createIntent(context: Context, imageList: List<String>) =
+        fun createIntent(context: Context, imageList: List<String>?) =
             Intent(context, ImageActivity::class.java).apply {
-                putExtra(IMAGE_ARG_KEY, imageList.toTypedArray())
+                putExtra(IMAGE_ARG_KEY, imageList?.toTypedArray())
             }
     }
 

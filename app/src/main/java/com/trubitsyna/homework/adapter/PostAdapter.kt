@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
 import com.trubitsyna.homework.data.PostData
-import com.trubitsyna.homework.data.PostIntentData
 import com.trubitsyna.homework.databinding.ViewCardPostBinding
 import com.trubitsyna.homework.diffcallback.PostDiffCallback
 import com.trubitsyna.homework.utils.Constants
@@ -16,9 +15,9 @@ class PostAdapter : ListAdapter<PostData, PostAdapter.PostViewHolder>(
     PostDiffCallback()
 ) {
 
-    private lateinit var onClick: (PostIntentData) -> Unit
+    private lateinit var onClick: (PostData) -> Unit
 
-    fun setCallback(callback: (PostIntentData) -> Unit) {
+    fun setCallback(callback: (PostData) -> Unit) {
         onClick = callback
     }
 
@@ -30,12 +29,12 @@ class PostAdapter : ListAdapter<PostData, PostAdapter.PostViewHolder>(
             with(binding.layoutViewPost) {
                 textViewName.text = item.name
                 val dateFormatter = SimpleDateFormat(Constants.DATE_PATTERN)
-                textViewData.text = dateFormatter.format(item.date)
+                textViewDate.text = dateFormatter.format(item.date)
                 textViewPost.text = item.mainText
                 imageViewPost.load(item.imageUrl)
                 buttonLike.text = item.likeCount.toString()
                 root.setOnClickListener {
-                    onClick.invoke(converter(item))
+                    onClick.invoke(item)
                 }
             }
         }
@@ -53,14 +52,4 @@ class PostAdapter : ListAdapter<PostData, PostAdapter.PostViewHolder>(
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
-    private fun converter(item: PostData) =
-        PostIntentData(
-            item.id,
-            item.name,
-            item.date.toString(),
-            item.imageUrl,
-            item.mainText,
-            item.likeCount.toString()
-        )
 }

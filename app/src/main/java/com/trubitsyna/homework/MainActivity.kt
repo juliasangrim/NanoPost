@@ -15,8 +15,8 @@ import java.sql.Date
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var profileList: List<ProfileData>
-    private lateinit var imageCardList: List<ImageCardData>
+    private lateinit var profile: ProfileData
+    private lateinit var imageCard: ImageCardData
     private lateinit var postList: List<PostData>
 
     private val profileAdapter: ProfileAdapter by lazy {
@@ -30,24 +30,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     init {
-        profileList = listOf<ProfileData>(
-            ProfileData(
-                name = Constants.NAME,
-                subtext = Constants.SUBTEXT,
-                imageCount = Constants.IMAGE_COUNT,
-                postCount = Constants.POST_COUNT,
-                subscribeCount = Constants.SUBSCRIBE_COUNT
-            )
+        profile = ProfileData(
+            name = Constants.NAME,
+            subtext = Constants.SUBTEXT,
+            imageCount = Constants.IMAGE_COUNT,
+            postCount = Constants.POST_COUNT,
+            subscribeCount = Constants.SUBSCRIBE_COUNT
         )
+
 
         val mockImagesUrlList = listOf(
-            Constants.IMAGE1_URL, Constants.IMAGE2_URL,
-            Constants.IMAGE3_URL, Constants.IMAGE4_URL, Constants.IMAGE1_URL
+            Constants.IMAGE1_URL,
+            Constants.IMAGE2_URL,
+            Constants.IMAGE3_URL,
+            Constants.IMAGE4_URL,
+            Constants.IMAGE1_URL
         )
 
-        imageCardList = listOf<ImageCardData>(
-            ImageCardData(listImagesUrl = mockImagesUrlList)
-        )
+        imageCard = ImageCardData(listImagesUrl = mockImagesUrlList)
+
         postList = listOf<PostData>(
             PostData(
                 name = Constants.NAME,
@@ -65,9 +66,9 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        profileAdapter.submitList(profileList)
+        profileAdapter.setItem(profile)
         with(imageCardAdapter) {
-            submitList(imageCardList)
+            setItem(imageCard)
             setCallback {
                 startActivity(ImageActivity.createIntent(this@MainActivity, it))
             }
