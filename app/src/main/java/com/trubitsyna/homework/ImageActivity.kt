@@ -5,10 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import com.trubitsyna.homework.adapter.ImageViewAdapter
-import com.trubitsyna.homework.data.ImageData
+import com.trubitsyna.homework.presentaion.list.adapter.ImageViewAdapter
+import com.trubitsyna.homework.presentaion.list.data.ImageData
 import com.trubitsyna.homework.databinding.ActivityImageBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ImageActivity : AppCompatActivity() {
 
     private val imageViewAdapter: ImageViewAdapter by lazy {

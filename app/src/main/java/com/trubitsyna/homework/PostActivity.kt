@@ -5,11 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
-import com.trubitsyna.homework.data.PostData
+import com.trubitsyna.homework.presentaion.list.data.PostData
 import com.trubitsyna.homework.databinding.ActivityPostBinding
 import com.trubitsyna.homework.utils.Constants
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 
+@AndroidEntryPoint
 class PostActivity : AppCompatActivity() {
 
     companion object {

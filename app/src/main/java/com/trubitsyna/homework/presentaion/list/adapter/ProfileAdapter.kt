@@ -1,10 +1,10 @@
-package com.trubitsyna.homework.adapter
+package com.trubitsyna.homework.presentaion.list.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.trubitsyna.homework.data.ProfileData
+import com.trubitsyna.homework.presentaion.list.data.ProfileData
 import com.trubitsyna.homework.databinding.ViewCardProfileBinding
 
 class ProfileAdapter(

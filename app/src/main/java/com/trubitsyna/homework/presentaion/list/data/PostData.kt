@@ -1,4 +1,4 @@
-package com.trubitsyna.homework.data
+package com.trubitsyna.homework.presentaion.list.data
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

@@ -1,13 +1,13 @@
-package com.trubitsyna.homework.adapter
+package com.trubitsyna.homework.presentaion.list.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
-import com.trubitsyna.homework.data.PostData
+import com.trubitsyna.homework.presentaion.list.data.PostData
 import com.trubitsyna.homework.databinding.ViewCardPostBinding
-import com.trubitsyna.homework.diffcallback.PostDiffCallback
+import com.trubitsyna.homework.presentaion.list.diffcallback.PostDiffCallback
 import com.trubitsyna.homework.utils.Constants
 import java.text.SimpleDateFormat
 

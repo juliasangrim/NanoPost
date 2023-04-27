@@ -1,23 +1,29 @@
 package com.trubitsyna.homework
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ConcatAdapter
-import com.trubitsyna.homework.adapter.ImageCardAdapter
-import com.trubitsyna.homework.adapter.PostAdapter
-import com.trubitsyna.homework.adapter.ProfileAdapter
-import com.trubitsyna.homework.data.ImageCardData
-import com.trubitsyna.homework.data.PostData
-import com.trubitsyna.homework.data.ProfileData
+import com.trubitsyna.homework.presentaion.list.adapter.ImageCardAdapter
+import com.trubitsyna.homework.presentaion.list.adapter.PostAdapter
+import com.trubitsyna.homework.presentaion.list.adapter.ProfileAdapter
+import com.trubitsyna.homework.presentaion.list.data.ImageCardData
+import com.trubitsyna.homework.presentaion.list.data.PostData
+import com.trubitsyna.homework.presentaion.list.data.ProfileData
 import com.trubitsyna.homework.databinding.ActivityMainBinding
+import com.trubitsyna.homework.presentaion.NanoPostViewModel
 import com.trubitsyna.homework.utils.Constants
+import dagger.hilt.android.AndroidEntryPoint
 import java.sql.Date
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var profile: ProfileData
     private lateinit var imageCard: ImageCardData
     private lateinit var postList: List<PostData>
+
+    private val viewModel by viewModels<NanoPostViewModel>()
 
     private val profileAdapter: ProfileAdapter by lazy {
         ProfileAdapter()

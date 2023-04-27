@@ -1,11 +1,11 @@
-package com.trubitsyna.homework.adapter
+package com.trubitsyna.homework.presentaion.list.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
-import com.trubitsyna.homework.data.ImageCardData
+import com.trubitsyna.homework.presentaion.list.data.ImageCardData
 import com.trubitsyna.homework.databinding.ViewCardImagesBinding
 
 class ImageCardAdapter(

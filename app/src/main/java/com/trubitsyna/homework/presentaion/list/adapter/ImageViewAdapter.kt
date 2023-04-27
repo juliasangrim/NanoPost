@@ -1,13 +1,13 @@
-package com.trubitsyna.homework.adapter
+package com.trubitsyna.homework.presentaion.list.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
-import com.trubitsyna.homework.data.ImageData
+import com.trubitsyna.homework.presentaion.list.data.ImageData
 import com.trubitsyna.homework.databinding.ViewImageItemBinding
-import com.trubitsyna.homework.diffcallback.ImageDiffCallback
+import com.trubitsyna.homework.presentaion.list.diffcallback.ImageDiffCallback
 
 class ImageViewAdapter : ListAdapter<ImageData, ImageViewAdapter.ImageViewHolder>(
     ImageDiffCallback()
