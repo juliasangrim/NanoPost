@@ -9,6 +9,7 @@ data class ApiProfile(
     val displayName: String?,
     val bio: String?,
     val avatarId: String?,
+    val avatarSmall: String?,
     val avatarLarge: String?,
     val subscribed: Boolean,
     val subscribersCount: Int,

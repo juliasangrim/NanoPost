@@ -16,10 +16,10 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".PostActivity"
+            android:name=".presentaion.post.PostFragment"
             android:exported="false" />
         <activity
-            android:name=".ImageActivity"
+            android:name=".presentaion.image_list.ImageFragment"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

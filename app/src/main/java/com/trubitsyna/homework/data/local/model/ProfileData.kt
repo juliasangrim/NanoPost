@@ -1,4 +1,4 @@
-package com.trubitsyna.homework.presentaion.list.data
+package com.trubitsyna.homework.data.local.model
 
 import java.util.UUID
 

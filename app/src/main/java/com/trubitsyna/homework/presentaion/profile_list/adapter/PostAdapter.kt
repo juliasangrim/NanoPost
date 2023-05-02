@@ -1,19 +1,21 @@
-package com.trubitsyna.homework.presentaion.list.adapter
+package com.trubitsyna.homework.presentaion.profile_list.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
-import com.trubitsyna.homework.presentaion.list.data.PostData
+import com.trubitsyna.homework.data.local.model.PostData
 import com.trubitsyna.homework.databinding.ViewCardPostBinding
-import com.trubitsyna.homework.presentaion.list.diffcallback.PostDiffCallback
+import com.trubitsyna.homework.presentaion.profile_list.diffcallback.PostDiffCallback
 import com.trubitsyna.homework.utils.Constants
 import java.text.SimpleDateFormat
+import javax.inject.Inject
 
-class PostAdapter : ListAdapter<PostData, PostAdapter.PostViewHolder>(
-    PostDiffCallback()
-) {
+class PostAdapter @Inject constructor() :
+    ListAdapter<PostData, PostAdapter.PostViewHolder>(
+        PostDiffCallback()
+    ) {
 
     private lateinit var onClick: (PostData) -> Unit
 

@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class NanoPostViewModel @Inject constructor(
     private val getProfileUseCase: GetProfileUseCase
-): ViewModel(
+) : ViewModel(
 ) {
 
     private val _profileLiveData = MutableLiveData<Profile>()
@@ -22,8 +22,7 @@ class NanoPostViewModel @Inject constructor(
         viewModelScope.launch {
             getProfileUseCase.execute(
                 profileId
-            ).also {
-                profile ->
+            ).also { profile ->
                 _profileLiveData.postValue(profile)
             }
 

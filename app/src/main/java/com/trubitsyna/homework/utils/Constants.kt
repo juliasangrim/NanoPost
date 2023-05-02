@@ -4,11 +4,8 @@ class Constants {
     companion object {
         const val DATE_PATTERN = "MMM d, yyyy HH:mm:ss"
         const val NAME = "Evolist"
-        const val SUBTEXT = "just do it."
-        const val MAIN_TEXT = "Why did the cats ask for a drum set? They wanted to make some mewsic!"
-        const val IMAGE_COUNT = 5
-        const val POST_COUNT = 1
-        const val SUBSCRIBE_COUNT = 12
+        const val MAIN_TEXT =
+            "Why did the cats ask for a drum set? They wanted to make some mewsic!"
         const val LIKE_COUNT = 2
 
         const val IMAGE1_URL =

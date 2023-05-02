@@ -1,9 +1,9 @@
-package com.trubitsyna.homework.presentaion.list.diffcallback
+package com.trubitsyna.homework.presentaion.image_list.diffcallback
 
 import androidx.recyclerview.widget.DiffUtil
-import com.trubitsyna.homework.presentaion.list.data.ImageData
+import com.trubitsyna.homework.data.local.model.ImageData
 
-class ImageDiffCallback: DiffUtil.ItemCallback<ImageData>() {
+class ImageDiffCallback : DiffUtil.ItemCallback<ImageData>() {
     override fun areItemsTheSame(oldItem: ImageData, newItem: ImageData): Boolean {
         return oldItem.id == newItem.id
     }

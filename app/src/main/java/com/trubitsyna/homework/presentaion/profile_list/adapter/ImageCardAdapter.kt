@@ -1,20 +1,22 @@
-package com.trubitsyna.homework.presentaion.list.adapter
+package com.trubitsyna.homework.presentaion.profile_list.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
-import com.trubitsyna.homework.presentaion.list.data.ImageCardData
+import com.trubitsyna.homework.data.local.model.ImageCardData
 import com.trubitsyna.homework.databinding.ViewCardImagesBinding
+import javax.inject.Inject
 
-class ImageCardAdapter(
-    private var imageCardData: ImageCardData? = null
-): RecyclerView.Adapter<ImageCardAdapter.ImageViewHolder>() {
+class ImageCardAdapter @Inject constructor() :
+    RecyclerView.Adapter<ImageCardAdapter.ImageViewHolder>() {
 
     companion object {
         private const val MAX_ITEM_COUNT = 1
     }
+
+    private var imageCardData: ImageCardData? = null
 
     private lateinit var onClick: (List<String>?) -> Unit
 

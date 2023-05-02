@@ -1,17 +1,19 @@
-package com.trubitsyna.homework.presentaion.list.adapter
+package com.trubitsyna.homework.presentaion.image_list.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
-import com.trubitsyna.homework.presentaion.list.data.ImageData
+import com.trubitsyna.homework.data.local.model.ImageData
 import com.trubitsyna.homework.databinding.ViewImageItemBinding
-import com.trubitsyna.homework.presentaion.list.diffcallback.ImageDiffCallback
+import com.trubitsyna.homework.presentaion.image_list.diffcallback.ImageDiffCallback
+import javax.inject.Inject
 
-class ImageViewAdapter : ListAdapter<ImageData, ImageViewAdapter.ImageViewHolder>(
-    ImageDiffCallback()
-) {
+class ImageViewAdapter @Inject constructor() :
+    ListAdapter<ImageData, ImageViewAdapter.ImageViewHolder>(
+        ImageDiffCallback()
+    ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         return ImageViewHolder(

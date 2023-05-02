@@ -9,5 +9,5 @@ interface NanoPostApiService {
     @GET("api/v1/profile/{profileId}")
     suspend fun getProfile(
         @Path("profileId") profileId: String
-    ) : ApiProfile
+    ): ApiProfile
 }

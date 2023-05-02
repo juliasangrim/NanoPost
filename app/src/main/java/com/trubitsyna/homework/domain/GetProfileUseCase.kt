@@ -7,7 +7,7 @@ import javax.inject.Inject
 class GetProfileUseCase @Inject constructor(
     private val repository: ProfileRepository
 ) {
-    suspend fun execute(profileId: String) : Profile {
+    suspend fun execute(profileId: String): Profile {
         return repository.getProfile(profileId)
     }
 }

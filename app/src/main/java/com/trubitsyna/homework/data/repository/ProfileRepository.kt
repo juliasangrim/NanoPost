@@ -4,5 +4,5 @@ import com.trubitsyna.homework.data.remote.model.Profile
 
 interface ProfileRepository {
 
-    suspend fun getProfile(profileId: String) : Profile
+    suspend fun getProfile(profileId: String): Profile
 }

@@ -1,19 +1,21 @@
-package com.trubitsyna.homework.presentaion.list.adapter
+package com.trubitsyna.homework.presentaion.profile_list.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.trubitsyna.homework.presentaion.list.data.ProfileData
+import com.trubitsyna.homework.data.local.model.ProfileData
 import com.trubitsyna.homework.databinding.ViewCardProfileBinding
+import javax.inject.Inject
 
-class ProfileAdapter(
-    private var profileData: ProfileData? = null
-) : Adapter<ProfileAdapter.ProfileViewHolder>() {
+class ProfileAdapter @Inject constructor() :
+    Adapter<ProfileAdapter.ProfileViewHolder>() {
 
     companion object {
         private const val MAX_ITEM_COUNT = 1
     }
+
+    private var profileData: ProfileData? = null
 
     fun setItem(item: ProfileData) {
         profileData = item

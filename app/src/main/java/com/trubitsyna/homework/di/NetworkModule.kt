@@ -21,12 +21,16 @@ object NetworkModule {
 
     private const val BASE_URL = "https://nanopost.evolitist.com/"
 
+    private val json = Json {
+        ignoreUnknownKeys = true
+    }
+
     @Provides
     @Singleton
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL).addConverterFactory(
-                Json.asConverterFactory("application/json".toMediaType())
+                json.asConverterFactory("application/json".toMediaType())
             )
             .build()
     }
