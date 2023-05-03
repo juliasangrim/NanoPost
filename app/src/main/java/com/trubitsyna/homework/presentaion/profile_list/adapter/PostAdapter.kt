@@ -2,6 +2,8 @@ package com.trubitsyna.homework.presentaion.profile_list.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
@@ -13,7 +15,7 @@ import java.text.SimpleDateFormat
 import javax.inject.Inject
 
 class PostAdapter @Inject constructor() :
-    ListAdapter<PostData, PostAdapter.PostViewHolder>(
+    PagingDataAdapter<PostData, PostAdapter.PostViewHolder>(
         PostDiffCallback()
     ) {
 
@@ -52,6 +54,6 @@ class PostAdapter @Inject constructor() :
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        getItem(position)?.let { holder.bind(it) }
     }
 }

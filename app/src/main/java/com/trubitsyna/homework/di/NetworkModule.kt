@@ -36,14 +36,14 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    @AuthClient
+//    @AuthClient
     fun provideRetrofit(
         httpClient: OkHttpClient,
         json: Factory
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .client(httpClient)
+           // .client(httpClient)
             .addConverterFactory(
                 json
             )
@@ -56,18 +56,18 @@ object NetworkModule {
         }.asConverterFactory("application/json".toMediaType())
     }
 
-    @Provides
-    @Singleton
-    fun provideAuthRetrofit(
-        json: Factory
-    ): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(
-                json
-            )
-            .build()
-    }
+//    @Provides
+//    @Singleton
+//    fun provideAuthRetrofit(
+//        json: Factory
+//    ): Retrofit {
+//        return Retrofit.Builder()
+//            .baseUrl(BASE_URL)
+//            .addConverterFactory(
+//                json
+//            )
+//            .build()
+//    }
 
     @Provides
     @Singleton
@@ -77,11 +77,11 @@ object NetworkModule {
         return retrofit.create()
     }
 
-    @Provides
-    @Singleton
-    fun provideNanopostAuthApiService(@AuthClient retrofit: Retrofit) {
-        return retrofit.create()
-    }
+//    @Provides
+//    @Singleton
+//    fun provideNanopostAuthApiService(@AuthClient retrofit: Retrofit) {
+//        return retrofit.create()
+//    }
     @Provides
     @Singleton
     fun provideAuthInterceptor(

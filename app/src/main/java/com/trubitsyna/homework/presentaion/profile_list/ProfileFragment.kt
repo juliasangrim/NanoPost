@@ -65,9 +65,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getProfile()
+        viewModel.loadPosts()
         Log.i("D", "log")
         imageCardAdapter.setItem(imageCard)
-        postAdapter.submitList(postList)
         with(imageCardAdapter) {
             setCallback {
                 if (it != null) {
@@ -102,6 +102,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     subscribeCount = it.subscribersCount
                 )
             )
+        }
+        viewModel.postLiveData.observe(viewLifecycleOwner) {
+            postAdapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
 
     }
