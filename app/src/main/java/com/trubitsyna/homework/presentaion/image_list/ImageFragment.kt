@@ -18,7 +18,7 @@ import javax.inject.Inject
 class ImageFragment : Fragment(R.layout.fragment_image) {
 
     private val binding: FragmentImageBinding by viewBinding(FragmentImageBinding::bind)
-    private val args by navArgs<ImageFragmentArgs>()
+//    private val args by navArgs<ImageFragmentArgs>()
 
     @Inject
     lateinit var imageViewAdapter: ImageViewAdapter
@@ -30,20 +30,20 @@ class ImageFragment : Fragment(R.layout.fragment_image) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val listImageUrl = args.imageInfo?.map {
-            ImageData(
-                imageUrl = it
-            )
-        }
-        imageViewAdapter.submitList(listImageUrl)
-
-        with(binding) {
-            recyclerViewImages.adapter = imageViewAdapter
-            recyclerViewImages.layoutManager = GridLayoutManager(context, COLUMN_NUM)
-            toolBarImages.setNavigationOnClickListener {
-                findNavController().popBackStack()
-            }
-        }
+//        val listImageUrl = args.imageInfo?.map {
+//            ImageData(
+//                imageUrl = it
+//            )
+//        }
+//        imageViewAdapter.submitList(listImageUrl)
+//
+//        with(binding) {
+//            recyclerViewImages.adapter = imageViewAdapter
+//            recyclerViewImages.layoutManager = GridLayoutManager(context, COLUMN_NUM)
+//            toolBarImages.setNavigationOnClickListener {
+//                findNavController().popBackStack()
+//            }
+//        }
 
     }
 }

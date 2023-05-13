@@ -1,13 +1,13 @@
 package com.trubitsyna.homework.data.mapper
 
-import com.trubitsyna.homework.data.local.model.PostData
+import com.trubitsyna.homework.data.local.model.Post
 import com.trubitsyna.homework.data.remote.model.ApiPost
 import java.sql.Date
 import javax.inject.Inject
 
 class PostMapper @Inject constructor() {
-    fun apiPostToPostData(apiPost: ApiPost): PostData {
-        return PostData(
+    fun apiPostToPostData(apiPost: ApiPost): Post {
+        return Post(
             id = apiPost.id,
             name = "evo",
             date = Date(apiPost.dateCreated),

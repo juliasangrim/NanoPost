@@ -7,6 +7,10 @@ class Constants {
         const val MAIN_TEXT =
             "Why did the cats ask for a drum set? They wanted to make some mewsic!"
         const val LIKE_COUNT = 2
+        const val VALID_LENGTH_PASSWORD = 8
+        const val USER_ID_KEY = "userId"
+        const val TOKEN_ID_KEY = "token"
+        const val PREFS_NAME = "user_info"
 
         const val IMAGE1_URL =
             "https://paradepets.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_700/MTkxMzY1Nzg4OTY1MDg2NzUz/cat-jokes-png.webp"

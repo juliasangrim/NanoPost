@@ -71,9 +71,13 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
     //Binding
     implementation 'com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.8'
-
     //Paging
     implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+    //Chucker
+    debugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
+    //DataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation "androidx.activity:activity-ktx:1.7.1"

@@ -2,12 +2,10 @@ package com.trubitsyna.homework.presentaion.profile_list.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
 import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
-import com.trubitsyna.homework.data.local.model.PostData
+import com.trubitsyna.homework.data.local.model.Post
 import com.trubitsyna.homework.databinding.ViewCardPostBinding
 import com.trubitsyna.homework.presentaion.profile_list.diffcallback.PostDiffCallback
 import com.trubitsyna.homework.utils.Constants
@@ -15,13 +13,13 @@ import java.text.SimpleDateFormat
 import javax.inject.Inject
 
 class PostAdapter @Inject constructor() :
-    PagingDataAdapter<PostData, PostAdapter.PostViewHolder>(
+    PagingDataAdapter<Post, PostAdapter.PostViewHolder>(
         PostDiffCallback()
     ) {
 
-    private lateinit var onClick: (PostData) -> Unit
+    private lateinit var onClick: (Post) -> Unit
 
-    fun setCallback(callback: (PostData) -> Unit) {
+    fun setCallback(callback: (Post) -> Unit) {
         onClick = callback
     }
 
@@ -29,7 +27,7 @@ class PostAdapter @Inject constructor() :
         private val binding: ViewCardPostBinding
     ) : ViewHolder(binding.root) {
 
-        fun bind(item: PostData) {
+        fun bind(item: Post) {
             with(binding.layoutViewPost) {
                 textViewName.text = item.name
                 val dateFormatter = SimpleDateFormat(Constants.DATE_PATTERN)

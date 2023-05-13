@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.trubitsyna.homework.R
@@ -15,8 +14,8 @@ import com.trubitsyna.homework.presentaion.profile_list.adapter.ImageCardAdapter
 import com.trubitsyna.homework.presentaion.profile_list.adapter.PostAdapter
 import com.trubitsyna.homework.presentaion.profile_list.adapter.ProfileAdapter
 import com.trubitsyna.homework.data.local.model.ImageCardData
-import com.trubitsyna.homework.data.local.model.PostData
-import com.trubitsyna.homework.data.local.model.ProfileData
+import com.trubitsyna.homework.data.local.model.Post
+import com.trubitsyna.homework.data.remote.model.LoadableResult
 import com.trubitsyna.homework.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import java.sql.Date
@@ -38,7 +37,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     lateinit var postAdapter: PostAdapter
 
     lateinit var imageCard: ImageCardData
-    lateinit var postList: List<PostData>
+    lateinit var postList: List<Post>
 
     init {
         val mockImagesUrlList = listOf(
@@ -51,8 +50,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         imageCard = ImageCardData(listImagesUrl = mockImagesUrlList)
 
-        postList = listOf<PostData>(
-            PostData(
+        postList = listOf<Post>(
+            Post(
                 name = Constants.NAME,
                 date = Date(System.currentTimeMillis()),
                 imageUrl = Constants.IMAGE1_URL,
@@ -64,6 +63,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         viewModel.getProfile()
         viewModel.loadPosts()
         Log.i("D", "log")
@@ -71,19 +72,19 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         with(imageCardAdapter) {
             setCallback {
                 if (it != null) {
-                    findNavController().navigate(
-                        ProfileFragmentDirections.actionProfileFragmentToImageFragment(
-                            it.toTypedArray()
-                        )
-                    )
+//                    findNavController().navigate(
+//                        ProfileFragmentDirections.actionProfileFragmentToImageFragment(
+//                            it.toTypedArray()
+//                        )
+//                    )
                 }
             }
         }
         with(postAdapter) {
             setCallback {
-                findNavController().navigate(
-                    ProfileFragmentDirections.actionProfileFragmentToPostFragment(it)
-                )
+//                findNavController().navigate(
+//                    ProfileFragmentDirections.actionProfileFragmentToPostFragment(it)
+//                )
             }
         }
 
@@ -92,16 +93,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             recyclerViewConcat.adapter = concatenatedAdapter
         }
 
-        viewModel.profileLiveData.observe(viewLifecycleOwner) {
-            profileAdapter.setItem(
-                ProfileData(
-                    name = it.username,
-                    subtext = it.bio ?: "",
-                    imageCount = it.imagesCount,
-                    postCount = it.postsCount,
-                    subscribeCount = it.subscribersCount
-                )
-            )
+        viewModel.profileLiveData.observe(viewLifecycleOwner) {result ->
+            when(result) {
+                is LoadableResult.Error -> {}
+                is LoadableResult.Loading ->  {}
+                is LoadableResult.Success -> {}
+            }
         }
         viewModel.postLiveData.observe(viewLifecycleOwner) {
             postAdapter.submitData(viewLifecycleOwner.lifecycle, it)

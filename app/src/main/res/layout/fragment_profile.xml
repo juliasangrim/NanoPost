@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:menu="@menu/menu_profile"
-            app:title="@string/toolbar_title_profile"
+            app:title="@string/title_profile"
             app:titleCentered="true" />
     </com.google.android.material.appbar.AppBarLayout>
 

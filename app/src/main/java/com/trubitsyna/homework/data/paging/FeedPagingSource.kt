@@ -6,7 +6,7 @@ import com.trubitsyna.homework.data.remote.NanoPostApiService
 import com.trubitsyna.homework.data.remote.model.ApiPost
 import java.lang.Exception
 
-class PostPagingSource constructor(
+class FeedPagingSource constructor(
     private val apiService: NanoPostApiService
 ) : PagingSource<String, ApiPost>() {
     override fun getRefreshKey(
@@ -19,8 +19,7 @@ class PostPagingSource constructor(
         params: LoadParams<String>
     ): LoadResult<String, ApiPost> {
         return try {
-            val response = apiService.getPosts(
-                profileId = "evo",
+            val response = apiService.getFeed(
                 count = params.loadSize,
                 offset = params.key)
             LoadResult.Page(

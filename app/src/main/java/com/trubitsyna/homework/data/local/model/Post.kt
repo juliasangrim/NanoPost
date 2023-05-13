@@ -6,7 +6,7 @@ import java.sql.Date
 import java.util.UUID
 
 @Parcelize
-data class PostData(
+data class Post(
     val id: String = UUID.randomUUID().toString(),
     val name: String,
     val date: Date,
