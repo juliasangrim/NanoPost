@@ -2,18 +2,23 @@ package com.trubitsyna.homework.data.mapper
 
 import com.trubitsyna.homework.data.local.model.Post
 import com.trubitsyna.homework.data.remote.model.ApiPost
-import java.sql.Date
 import javax.inject.Inject
 
-class PostMapper @Inject constructor() {
-    fun apiPostToPostData(apiPost: ApiPost): Post {
+class PostMapper @Inject constructor(
+    private val profileCompactMapper: ProfileCompactMapper,
+    private val imageMapper: ImageMapper,
+) {
+    fun apiPostToPost(apiPost: ApiPost): Post {
         return Post(
             id = apiPost.id,
-            name = "evo",
-            date = Date(apiPost.dateCreated),
-            mainText = apiPost.text.toString(),
-            imageUrl = "https://i.pinimg.com/736x/23/86/e3/2386e3023848e6754b8f0ad9597676a7.jpg",
-            likeCount = 0
+            owner = profileCompactMapper.apiProfileCompactToProfileCompact(apiPost.owner),
+            dateCreated = apiPost.dateCreated,
+            text = apiPost.text,
+            images = apiPost.images.map {
+                imageMapper.apiImageToImage(it)
+            },
+            likeCount = apiPost.likes.likesCount,
+            isLiked = apiPost.likes.liked,
         )
     }
 

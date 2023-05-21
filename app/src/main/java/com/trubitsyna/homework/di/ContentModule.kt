@@ -17,7 +17,7 @@ object ContentModule {
     @Singleton
     fun provideContentResolver(
         @ApplicationContext context: Context
-    ) : ContentResolver {
+    ): ContentResolver {
         return context.contentResolver
     }
 }

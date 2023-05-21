@@ -32,8 +32,7 @@
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/imageViewProfile"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/test_profile_name" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewProfileSubtext"
@@ -45,8 +44,7 @@
             android:textAppearance="@style/TextAppearance.Material3.BodySmall"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
-            app:layout_constraintTop_toBottomOf="@id/textViewName"
-            tools:text="@string/test_profile_subtext" />
+            app:layout_constraintTop_toBottomOf="@id/textViewName" />
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/dividerProfile"
@@ -67,8 +65,7 @@
             android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
             app:layout_constraintEnd_toStartOf="@id/textViewSubscribeCounter"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dividerProfile"
-            tools:text="@string/test_images_count" />
+            app:layout_constraintTop_toBottomOf="@+id/dividerProfile" />
 
         <TextView
             android:id="@+id/textViewSubscribeCounter"
@@ -79,8 +76,7 @@
             android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
             app:layout_constraintEnd_toStartOf="@id/textViewPostCounter"
             app:layout_constraintStart_toEndOf="@id/textViewImageCounter"
-            app:layout_constraintTop_toBottomOf="@+id/dividerProfile"
-            tools:text="@string/test_subscribers_count" />
+            app:layout_constraintTop_toBottomOf="@+id/dividerProfile" />
 
         <TextView
             android:id="@+id/textViewPostCounter"
@@ -91,8 +87,7 @@
             android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/textViewSubscribeCounter"
-            app:layout_constraintTop_toBottomOf="@+id/dividerProfile"
-            tools:text="@string/test_post_count" />
+            app:layout_constraintTop_toBottomOf="@+id/dividerProfile" />
 
         <TextView
             android:id="@+id/textViewImageSubtitle"

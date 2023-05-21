@@ -6,12 +6,13 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.IBinder
+import android.util.Log
 import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.trubitsyna.homework.R
-import com.trubitsyna.homework.domain.CreatePostUseCase
-import com.trubitsyna.homework.domain.GetContentUriUseCase
+import com.trubitsyna.homework.domain.content.GetContentUriUseCase
+import com.trubitsyna.homework.domain.post.CreatePostUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
@@ -27,7 +28,6 @@ class CreatePostService : Service(), CoroutineScope by MainScope() {
         private const val ARG_IMAGES_KEY = "ARG_IMAGES_KEY"
         private const val NOTIFICATION_ID = 777
         private const val ACTION_CREATE_POST = "ACTION_CREATE_POST"
-        private const val CHANNEL_NAME = "Загрузка данных"
         private const val CHANNEL_ID = "Create Notification"
 
         fun newIntent(
@@ -38,7 +38,6 @@ class CreatePostService : Service(), CoroutineScope by MainScope() {
             action = ACTION_CREATE_POST
             putExtra(ARG_TEXT_KEY, text)
             putParcelableArrayListExtra(ARG_IMAGES_KEY, ArrayList(list))
-            putExtra(ARG_IMAGES_KEY, list.toTypedArray())
         }
     }
 
@@ -56,12 +55,13 @@ class CreatePostService : Service(), CoroutineScope by MainScope() {
         startId: Int
     ): Int {
         intent?.let {
+            startForeground(NOTIFICATION_ID, createNotification())
             if (it.action == ACTION_CREATE_POST) {
-                startForeground(NOTIFICATION_ID, createNotification())
                 val text = it.extras?.getString(ARG_TEXT_KEY)
                 val images = it.extras?.getParcelableArrayList<Uri>(ARG_IMAGES_KEY)?.map { uri ->
                     getContentUriUseCase.execute(uri)
                 }
+                images?.filterNotNull()?.let { it1 -> Log.i("Service", it1.count().toString()) }
 
                 launch {
                     createPostUseCase.execute(text, images?.filterNotNull())
@@ -72,11 +72,11 @@ class CreatePostService : Service(), CoroutineScope by MainScope() {
         return super.onStartCommand(intent, flags, startId)
     }
 
-    private fun createNotification() : Notification {
+    private fun createNotification(): Notification {
         createNotificationChannel()
 
         return NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle(CHANNEL_NAME)
+            .setContentTitle(getString(R.string.loading_data_title))
             .setSmallIcon(R.drawable.ic_add_image_24)
             .setProgress(0, 0, true)
             .build()
@@ -86,7 +86,7 @@ class CreatePostService : Service(), CoroutineScope by MainScope() {
         val channel = NotificationChannelCompat.Builder(
             CHANNEL_ID,
             NotificationManagerCompat.IMPORTANCE_LOW
-        ).setName(CHANNEL_NAME)
+        ).setName(getString(R.string.loading_data))
             .build()
         NotificationManagerCompat.from(this).createNotificationChannel(channel)
 

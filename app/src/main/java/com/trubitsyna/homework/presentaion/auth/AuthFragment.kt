@@ -2,21 +2,17 @@ package com.trubitsyna.homework.presentaion.auth
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.graphics.Insets
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.google.android.material.textfield.TextInputLayout
 import com.trubitsyna.homework.R
 import com.trubitsyna.homework.data.local.model.auth.CheckNameResponse
 import com.trubitsyna.homework.databinding.FragmentAuthBinding
-import com.trubitsyna.homework.utils.Constants
-import com.trubitsyna.homework.utils.ErrorMessageConstants
+import com.trubitsyna.homework.utils.clearError
+import com.trubitsyna.homework.utils.disable
+import com.trubitsyna.homework.utils.showError
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,34 +22,17 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
-            val imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime())
-            binding.root.updatePadding(
-                bottom = imeInsets.bottom
-            )
-            WindowInsetsCompat.Builder()
-                .setInsets(
-                    WindowInsetsCompat.Type.ime(),
-                    Insets.of(
-                        imeInsets.left,
-                        0,
-                        imeInsets.right,
-                        imeInsets.bottom
-                    )
-                ).build()
-        }
         with(binding) {
             buttonContinue.setOnClickListener {
-                continueButtonListener()
+                checkNameListener()
             }
 
-           editTextUsernameInput.doOnTextChanged { _, _, _, _ ->
-                clearTextInputError(textInputLayoutUsernameInput)
+            editTextUsernameInput.doOnTextChanged { _, _, _, _ ->
+                textInputLayoutUsernameInput.clearError()
             }
 
             editTextPasswordInput.doOnTextChanged { _, _, _, _ ->
-                clearTextInputError(textInputLayoutPasswordInput)
+                textInputLayoutPasswordInput.clearError()
             }
         }
 
@@ -61,79 +40,58 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
             with(binding) {
                 when (response) {
                     CheckNameResponse.SHORT_NAME -> {
-                        showTextInputError(textInputLayoutUsernameInput, response.message)
+                        textInputLayoutUsernameInput.showError(
+                            getString(R.string.error_msg_short_username)
+                        )
                     }
 
                     CheckNameResponse.LONG_NAME -> {
-                        showTextInputError(textInputLayoutUsernameInput, response.message)
+                        textInputLayoutUsernameInput.showError(
+                            getString(R.string.error_msg_long_username)
+                        )
                     }
 
                     CheckNameResponse.INVALID_CHAR_NAME -> {
-                        showTextInputError(textInputLayoutUsernameInput, response.message)
+                        textInputLayoutUsernameInput.showError(
+                            getString(R.string.error_msg_invalid_char_username)
+                        )
                     }
 
                     else -> {
-                        clearTextInputError(textInputLayoutUsernameInput)
+                        textInputLayoutUsernameInput.clearError()
                         textInputLayoutPasswordInput.visibility = View.VISIBLE
-                        disableTextInput(textInputLayoutUsernameInput)
+                        textInputLayoutUsernameInput.disable()
+                        buttonContinue.setOnClickListener {
+                            checkPasswordListener()
+                        }
                     }
                 }
             }
         }
+
         viewModel.userLiveData.observe(viewLifecycleOwner) {
             viewModel.saveUserData(it)
             findNavController().navigate(
-                AuthFragmentDirections.actionAuthFragmentToFeedFragment()
+                AuthFragmentDirections.actionAuthFragmentToNavigation()
             )
         }
     }
 
-    private fun continueButtonListener() {
-        with(binding) {
-            if (isUsernameChecked() && isPasswordValid()) {
-                clearTextInputError(textInputLayoutPasswordInput)
-                val checkNameResponse = viewModel.validationResultLiveData.value
-                if (checkNameResponse == CheckNameResponse.TAKEN) {
-                    viewModel.login(getUsername(), getPassword())
-                }
-                if (checkNameResponse == CheckNameResponse.FREE) {
-                    viewModel.register(getUsername(), getPassword())
-                }
-            }
-            if (isUsernameChecked() && !isPasswordValid()) {
-                showTextInputError(
-                    textInputLayoutPasswordInput,
-                    ErrorMessageConstants.SHORT_PASSWORD_MSG
-                )
-            }
-            if (!isUsernameChecked()) {
-                viewModel.checkName(getUsername())
-            }
+    private fun checkNameListener() {
+        viewModel.checkUsername(getUsername())
+    }
+
+    private fun checkPasswordListener() {
+        val username = getUsername()
+        val password = getPassword()
+        if (viewModel.isPasswordValid(getPassword())) {
+            viewModel.auth(username, password)
+        } else {
+            binding.textInputLayoutPasswordInput.showError(
+                getString(R.string.error_msg_short_password)
+            )
         }
     }
-
-    private fun clearTextInputError(textInputLayout: TextInputLayout) {
-        with(textInputLayout) {
-            error = null
-            isErrorEnabled = false
-        }
-    }
-
-    private fun showTextInputError(textInputLayout: TextInputLayout, msg: String) {
-        with(textInputLayout) {
-            error = msg
-        }
-    }
-
-    private fun disableTextInput(textInputLayout: TextInputLayout) {
-        textInputLayout.isFocusable = false
-        textInputLayout.isEnabled = false
-    }
-
-    private fun isUsernameChecked() =
-        viewModel.validationResultLiveData.isInitialized
-
-    private fun isPasswordValid() = getPassword().length >= Constants.VALID_LENGTH_PASSWORD
 
     private fun getUsername() = binding.editTextUsernameInput.editableText.toString()
 

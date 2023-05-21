@@ -12,19 +12,19 @@ import retrofit2.http.Query
 @NetworkModule.AuthClient
 interface NanopostAuthApiService {
 
-    @GET("api/auth/checkUsername")
+    @GET("/api/auth/checkUsername")
     suspend fun checkUsername(
         @Query("username") username: String,
     ): ApiValidateUsernameResponse
 
-    @GET("api/auth/login")
+    @GET("/api/auth/login")
     suspend fun login(
         @Query("username") username: String,
         @Query("password") password: String,
     ): ApiTokenResponse
 
-    @POST("api/auth/register")
+    @POST("/api/auth/register")
     suspend fun register(
         @Body registerRequest: ApiRegistrationRequest,
-    ) : ApiTokenResponse
+    ): ApiTokenResponse
 }

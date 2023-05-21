@@ -6,13 +6,14 @@ import kotlinx.serialization.Serializable
 data class ApiProfile(
     val id: String,
     val username: String,
-    val displayName: String?,
-    val bio: String?,
-    val avatarId: String?,
-    val avatarSmall: String?,
-    val avatarLarge: String?,
+    val displayName: String? = null,
+    val bio: String? = null,
+    val avatarId: String? = null,
+    val avatarSmall: String? = null,
+    val avatarLarge: String? = null,
     val subscribed: Boolean,
     val subscribersCount: Int,
     val postsCount: Int,
-    val imagesCount: Int
+    val imagesCount: Int,
+    val images: List<ApiImage>,
 )

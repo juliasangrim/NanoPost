@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
 
     <application
         android:name=".NanoApplication"
@@ -16,12 +17,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="31">
-        <activity
-            android:name=".presentaion.post.PostFragment"
-            android:exported="false" />
-        <activity
-            android:name=".presentaion.image_list.ImageFragment"
-            android:exported="false" />
+        <service android:name=".service.CreatePostService"
+            android:enabled="true"
+            android:label="Service"
+            android:exported="false"/>
+        <service android:name="com.google.android.gms.metadata.ModuleDependencies"
+            android:enabled="false"
+            android:exported="false"
+            tools:ignore="MissingClass">
+            <intent-filter>
+                <action android:name="com.google.android.gms.metadata.MODULE_DEPENDENCIES" />
+            </intent-filter>
+            <meta-data android:name="photopicker_activity:0:required" android:value="" />
+        </service>
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -31,9 +39,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <service android:name=".service.CreatePostService"
-            android:exported="false"/>
     </application>
 
 </manifest>

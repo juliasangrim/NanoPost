@@ -7,12 +7,16 @@ enum class ApiCheckNameResponseEnum(
 ) {
     @SerialName("TooShort")
     SHORT,
+
     @SerialName("TooLong")
     LONG,
+
     @SerialName("InvalidCharacters")
     INVALID_CHAR,
+
     @SerialName("Taken")
     TAKEN,
+
     @SerialName("Free")
     FREE,
 }

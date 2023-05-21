@@ -10,6 +10,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import java.text.SimpleDateFormat
 import javax.inject.Singleton
 
 val Context.userDataStore: DataStore<Preferences> by preferencesDataStore(
@@ -26,5 +27,13 @@ object ApplicationModule {
         @ApplicationContext applicationContext: Context
     ): DataStore<Preferences> {
         return applicationContext.userDataStore
+    }
+
+    @Provides
+    @Singleton
+    fun provideSimpleDateFormatter(
+
+    ): SimpleDateFormat {
+        return SimpleDateFormat(Constants.DATE_PATTERN)
     }
 }

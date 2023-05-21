@@ -1,28 +1,23 @@
 package com.trubitsyna.homework.di
 
 import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.stringPreferencesKey
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.trubitsyna.homework.data.remote.NanoPostApiService
 import com.trubitsyna.homework.data.remote.NanopostAuthApiService
-import com.trubitsyna.homework.utils.Constants
+import com.trubitsyna.homework.domain.auth.GetTokenUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import retrofit2.Converter.Factory
 import retrofit2.Retrofit
 import retrofit2.create
@@ -35,12 +30,9 @@ object NetworkModule {
 
     private const val BASE_URL = "https://nanopost.evolitist.com/"
 
-    private val json = Json {
-        ignoreUnknownKeys = true
-    }
-
     @Qualifier
     annotation class AuthClient
+
     @Qualifier
     annotation class ChuckerClient
 
@@ -99,15 +91,10 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideAuthInterceptor(
-        userDataStorage: DataStore<Preferences>
+        getTokenUseCase: GetTokenUseCase,
     ): Interceptor {
-        return Interceptor { chain ->
-            //TODO inject UseCase
-            val token = runBlocking {
-                userDataStorage.data.map { prefs ->
-                    prefs[stringPreferencesKey(Constants.TOKEN_ID_KEY)]
-                }.first()
-            }
+        return AuthSuspendInterceptor { chain ->
+            val token = getTokenUseCase.execute()
             val request = chain.request().newBuilder()
                 .addHeader(
                     name = "Authorization",
@@ -154,4 +141,10 @@ object NetworkModule {
             .build()
     }
 
+    @Suppress("FunctionName")
+    private fun AuthSuspendInterceptor(
+        body: suspend (chain: Interceptor.Chain) -> Response,
+    ) = Interceptor {
+        runBlocking { body(it) }
+    }
 }

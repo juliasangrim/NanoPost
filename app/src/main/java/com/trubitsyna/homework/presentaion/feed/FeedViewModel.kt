@@ -6,11 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.trubitsyna.homework.base.BaseViewModel
 import com.trubitsyna.homework.data.local.model.Post
-import com.trubitsyna.homework.data.remote.model.LoadableResult
-import com.trubitsyna.homework.data.remote.model.PagedDataResponse
-import com.trubitsyna.homework.domain.GetFeedUseCase
+import com.trubitsyna.homework.domain.post.GetFeedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,9 +20,9 @@ class FeedViewModel @Inject constructor(
     private val _mutablePostLiveData = MutableLiveData<PagingData<Post>>()
     val postLivaData: LiveData<PagingData<Post>> = _mutablePostLiveData
 
-    fun getFeed() {
+    fun loadFeed(loadExceptionCallback: () -> Unit) {
         viewModelScope.launch {
-            getFeedUseCase.execute()
+            getFeedUseCase.execute(loadExceptionCallback)
                 .cachedIn(viewModelScope)
                 .collect {
                     _mutablePostLiveData.postValue(it)

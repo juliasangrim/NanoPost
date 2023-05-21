@@ -6,17 +6,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.trubitsyna.homework.data.local.model.auth.CheckNameResponse
 import com.trubitsyna.homework.data.local.model.auth.UserData
-import com.trubitsyna.homework.domain.auth.CheckNameUseCase
+import com.trubitsyna.homework.domain.auth.CheckUsernameUseCase
 import com.trubitsyna.homework.domain.auth.LoginUseCase
 import com.trubitsyna.homework.domain.auth.RegisterUseCase
 import com.trubitsyna.homework.domain.auth.SaveUserInfoUseCase
+import com.trubitsyna.homework.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val checkNameUseCase: CheckNameUseCase,
+    private val checkUsernameUseCase: CheckUsernameUseCase,
     private val registerUseCase: RegisterUseCase,
     private val loginUseCase: LoginUseCase,
     private val saveUserInfoUseCase: SaveUserInfoUseCase,
@@ -28,21 +29,38 @@ class AuthViewModel @Inject constructor(
     private val _mutableUserLiveData = MutableLiveData<UserData>()
     val userLiveData: LiveData<UserData> = _mutableUserLiveData
 
-    fun checkName(username: String) {
+    fun checkUsername(username: String) {
         viewModelScope.launch {
-            val result = checkNameUseCase.execute(username)
+            val result = checkUsernameUseCase.execute(username)
             _mutableValidationResultLiveData.postValue(result)
         }
     }
 
-    fun login(username: String, password: String) {
+    fun isPasswordValid(password: String) =
+        password.length >= Constants.VALID_LENGTH_PASSWORD
+
+    fun auth(username: String, password: String) {
+        when (_mutableValidationResultLiveData.value) {
+            CheckNameResponse.TAKEN -> {
+                login(username, password)
+            }
+
+            CheckNameResponse.FREE -> {
+                register(username, password)
+            }
+
+            else -> {/* no-op */}
+        }
+    }
+
+    private fun login(username: String, password: String) {
         viewModelScope.launch {
             val result = loginUseCase.execute(username, password)
             _mutableUserLiveData.postValue(result)
         }
     }
 
-    fun register(username: String, password: String) {
+    private fun register(username: String, password: String) {
         viewModelScope.launch {
             val result = registerUseCase.execute(username, password)
             _mutableUserLiveData.postValue(result)

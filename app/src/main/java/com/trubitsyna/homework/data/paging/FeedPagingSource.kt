@@ -4,10 +4,10 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.trubitsyna.homework.data.remote.NanoPostApiService
 import com.trubitsyna.homework.data.remote.model.ApiPost
-import java.lang.Exception
 
 class FeedPagingSource constructor(
-    private val apiService: NanoPostApiService
+    private val apiService: NanoPostApiService,
+    private val loadExceptionCallback: () -> Unit
 ) : PagingSource<String, ApiPost>() {
     override fun getRefreshKey(
         state: PagingState<String, ApiPost>
@@ -21,12 +21,15 @@ class FeedPagingSource constructor(
         return try {
             val response = apiService.getFeed(
                 count = params.loadSize,
-                offset = params.key)
+                offset = params.key
+            )
             LoadResult.Page(
                 data = response.items,
                 nextKey = response.offset,
-                prevKey = null)
+                prevKey = null
+            )
         } catch (e: Exception) {
+            loadExceptionCallback()
             LoadResult.Error(e)
         }
     }

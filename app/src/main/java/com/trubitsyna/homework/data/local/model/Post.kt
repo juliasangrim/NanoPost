@@ -1,16 +1,11 @@
 package com.trubitsyna.homework.data.local.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-import java.sql.Date
-import java.util.UUID
-
-@Parcelize
 data class Post(
-    val id: String = UUID.randomUUID().toString(),
-    val name: String,
-    val date: Date,
-    val imageUrl: String,
-    val mainText: String,
-    val likeCount: Int
-) : Parcelable
+    val id: String,
+    val owner: ProfileCompact,
+    val dateCreated: Long,
+    val images: List<Image>,
+    val text: String?,
+    val likeCount: Int,
+    val isLiked: Boolean,
+)
