@@ -1,69 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/navigation"
-    app:startDestination="@id/feedFragment">
-    <fragment
-        android:id="@+id/feedFragment"
-        android:name="com.trubitsyna.homework.presentaion.feed.FeedFragment"
-        android:label="FeedFragment">
-        <action
-            android:id="@+id/action_feedFragment_to_createPostFragment"
-            app:destination="@id/createPostFragment" />
-        <action
-            android:id="@+id/action_feedFragment_to_postFragment"
-            app:destination="@id/postFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/createPostFragment"
-        android:name="com.trubitsyna.homework.presentaion.create.CreatePostFragment"
-        android:label="CreatePostFragment" />
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.trubitsyna.homework.presentaion.profile.ProfileFragment"
-        android:label="ProfileFragment">
-        <action
-            android:id="@+id/action_profileFragment_to_postFragment"
-            app:destination="@id/postFragment" />
-        <action
-            android:id="@+id/action_profileFragment_to_createPostFragment"
-            app:destination="@id/createPostFragment" />
-        <action
-            android:id="@+id/action_profileFragment_to_imageListFragment"
-            app:destination="@id/imageListFragment" />
-        <action
-            android:id="@+id/action_profileFragment_to_exitDialogFragment"
-            app:destination="@id/exitDialogFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/postFragment"
-        android:name="com.trubitsyna.homework.presentaion.post.PostFragment"
-        android:label="PostFragment">
-        <action
-            android:id="@+id/action_postFragment_to_imageFragment"
-            app:destination="@id/imageFragment" />
-        <argument
-            android:name="postId"
-            app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/imageListFragment"
-        android:name="com.trubitsyna.homework.presentaion.image_list.ImageListFragment"
-        android:label="ImageListFragment">
-        <action
-            android:id="@+id/action_imageListFragment_to_imageFragment"
-            app:destination="@id/imageFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/imageFragment"
-        android:name="com.trubitsyna.homework.presentaion.image.ImageFragment"
-        android:label="ImageFragment">
-        <argument
-            android:name="imageId"
-            app:argType="string" />
-    </fragment>
-    <dialog
-        android:id="@+id/exitDialogFragment"
-        android:name="com.trubitsyna.homework.presentaion.dialog.ExitDialogFragment"
-        android:label="ExitDialogFragment" />
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/feed">
+
+    <include app:graph="@navigation/nav_graph_feed" />
+    <include app:graph="@navigation/nav_graph_profile" />
 </navigation>

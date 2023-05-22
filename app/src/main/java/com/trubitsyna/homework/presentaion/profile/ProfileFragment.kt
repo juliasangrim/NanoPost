@@ -14,8 +14,9 @@ import com.trubitsyna.homework.databinding.FragmentProfileBinding
 import com.trubitsyna.homework.presentaion.adapter.ImageCardAdapter
 import com.trubitsyna.homework.presentaion.adapter.PostAdapter
 import com.trubitsyna.homework.presentaion.adapter.ProfileAdapter
+import com.trubitsyna.homework.utils.applySystemBarsTopInset
 import com.trubitsyna.homework.utils.replace
-import com.trubitsyna.homework.utils.showErrorWithAction
+import com.trubitsyna.homework.utils.showToastError
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -36,7 +37,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.root.applySystemBarsTopInset()
         viewModel.getUserId()
 
         imageCardAdapter.setCallback {
@@ -47,7 +48,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         postAdapter.setCallback {
             findNavController().navigate(
-                ProfileFragmentDirections.actionProfileFragmentToPostFragment(it.id)
+                ProfileFragmentDirections.actionProfileFragmentToPostFragment2(it.id)
             )
         }
 
@@ -87,9 +88,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         viewModel.profileLiveData.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is LoadableResult.Error -> {
-                    binding.root.showErrorWithAction(R.string.error_msg_network) {
-                        viewModel.getUserId()
-                    }
+                    requireContext().showToastError(R.string.error_msg_network)
                 }
 
                 is LoadableResult.Loading -> {
@@ -102,11 +101,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     with(result.data) {
                         profileAdapter.setItem(this)
                         imageCardAdapter.setItem(images)
-                        viewModel.loadPosts(id) {
-                            binding.root.showErrorWithAction(R.string.error_msg_network) {
-                                viewModel.getUserId()
-                            }
-                        }
+                        viewModel.loadPosts(id)
                     }
                     binding.progressBarProfile.root.replace(
                         binding.recyclerViewConcat

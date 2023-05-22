@@ -49,14 +49,12 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun loadPosts(
-        profileId: String?,
-        loadExceptionCallback: () -> Unit
+        profileId: String?
     ) {
         viewModelScope.launch {
             profileId?.let { profileId ->
                 getPostsUseCase.execute(
-                    profileId,
-                    loadExceptionCallback
+                    profileId
                 )
                     .cachedIn(viewModelScope)
                     .collect {

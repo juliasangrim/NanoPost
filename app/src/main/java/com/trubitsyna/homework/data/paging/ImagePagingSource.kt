@@ -9,7 +9,6 @@ import com.trubitsyna.homework.data.remote.model.ApiImage
 class ImagePagingSource constructor(
     private val profileId: String,
     private val apiService: NanoPostApiService,
-    private val loadExceptionCallback: () -> Unit,
 ) : PagingSource<String, ApiImage>() {
     override fun getRefreshKey(
         state: PagingState<String, ApiImage>
@@ -32,8 +31,6 @@ class ImagePagingSource constructor(
                 prevKey = null
             )
         } catch (e: Exception) {
-            Log.i("ERROR", e.toString())
-            loadExceptionCallback()
             LoadResult.Error(e)
         }
     }

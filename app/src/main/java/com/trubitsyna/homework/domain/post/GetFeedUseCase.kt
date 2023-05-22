@@ -9,9 +9,7 @@ import javax.inject.Inject
 class GetFeedUseCase @Inject constructor(
     private val postRepository: PostRepository,
 ) {
-    fun execute(loadExceptionCallback: () -> Unit): Flow<PagingData<Post>> {
-        return postRepository.getFeed(
-            loadExceptionCallback
-        )
+    fun execute(): Flow<PagingData<Post>> {
+        return postRepository.getFeed()
     }
 }

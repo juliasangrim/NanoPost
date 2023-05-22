@@ -21,12 +21,21 @@
     <string name="error_msg_long_username">Username must be shorter than 16 characters</string>
     <string name="error_msg_invalid_char_username">Username must contains characters: \"a\"-\"z\" \"_\" \".\"</string>
     <string name="error_msg_short_password">Password must be longer than 8 characters</string>
+    <string name="error_msg_incorrect_password">Incorrect password.</string>
+    <string name="error_msg_unknown">Something went wrong. Please, try later</string>
+    <string name="error_msg_empty_post">You can\'t create empty post!</string>
+    <string name="error_msg_network">There’s something wrong with your network connection</string>
+    <string name="error_msg_delete">Delete failed</string>
+    <string name="error_msg_create_post">Can\'t create post. Try later.</string>
+
     <string name="logout_title">Logout</string>
     <string name="logout_subtitle">Are you sure you want to log out?</string>
     <string name="confirm">Confirm</string>
     <string name="loading_data_title">Post creation</string>
+    <string name="creation_post_success">Create post successfully!</string>
+    <string name="delete_success">Delete successfully!</string>
     <string name="loading_data">Loading…</string>
     <string name="cancel">Cancel</string>
-    <string name="error_msg_network">There’s something wrong with your network connection</string>
     <string name="action_text">Retry</string>
+    <string name="delete">Delete</string>
 </resources>

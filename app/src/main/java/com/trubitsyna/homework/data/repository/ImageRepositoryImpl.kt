@@ -18,7 +18,6 @@ class ImageRepositoryImpl @Inject constructor(
 ) : ImageRepository {
     override fun getProfileImages(
         profileId: String,
-        loadExceptionCallback: () -> Unit
     ): Flow<PagingData<Image>> {
         return Pager(
             config = PagingConfig(30, enablePlaceholders = false),
@@ -26,7 +25,6 @@ class ImageRepositoryImpl @Inject constructor(
                 ImagePagingSource(
                     profileId,
                     nanoPostApiService,
-                    loadExceptionCallback
                 )
             }
         ).flow.map { value ->
@@ -40,7 +38,7 @@ class ImageRepositoryImpl @Inject constructor(
         return mapper.apiImageToImage(nanoPostApiService.getImage(imageId))
     }
 
-    override suspend fun deleteImage(imageId: String) {
-        nanoPostApiService.deleteImage(imageId)
+    override suspend fun deleteImage(imageId: String): Boolean {
+        return nanoPostApiService.deleteImage(imageId).result
     }
 }

@@ -2,10 +2,11 @@ package com.trubitsyna.homework.presentaion.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.trubitsyna.homework.base.AuthBaseViewModel
 import com.trubitsyna.homework.data.local.model.auth.CheckNameResponse
 import com.trubitsyna.homework.data.local.model.auth.UserData
+import com.trubitsyna.homework.data.remote.model.auth.AuthResult
 import com.trubitsyna.homework.domain.auth.CheckUsernameUseCase
 import com.trubitsyna.homework.domain.auth.LoginUseCase
 import com.trubitsyna.homework.domain.auth.RegisterUseCase
@@ -21,26 +22,26 @@ class AuthViewModel @Inject constructor(
     private val registerUseCase: RegisterUseCase,
     private val loginUseCase: LoginUseCase,
     private val saveUserInfoUseCase: SaveUserInfoUseCase,
-) : ViewModel() {
+) : AuthBaseViewModel() {
 
-    private val _mutableValidationResultLiveData = MutableLiveData<CheckNameResponse>()
-    val validationResultLiveData: LiveData<CheckNameResponse> = _mutableValidationResultLiveData
+    private val _mutableValidationResultLiveData = MutableLiveData<AuthResult<CheckNameResponse>>()
+    val validationResultLiveData: LiveData<AuthResult<CheckNameResponse>> =
+        _mutableValidationResultLiveData
 
-    private val _mutableUserLiveData = MutableLiveData<UserData>()
-    val userLiveData: LiveData<UserData> = _mutableUserLiveData
+    private val _mutableUserLiveData = MutableLiveData<AuthResult<UserData>>()
+    val userLiveData: LiveData<AuthResult<UserData>> = _mutableUserLiveData
 
     fun checkUsername(username: String) {
-        viewModelScope.launch {
-            val result = checkUsernameUseCase.execute(username)
-            _mutableValidationResultLiveData.postValue(result)
+        _mutableValidationResultLiveData.loadData {
+            checkUsernameUseCase.execute(username)
         }
     }
 
     fun isPasswordValid(password: String) =
         password.length >= Constants.VALID_LENGTH_PASSWORD
 
-    fun auth(username: String, password: String) {
-        when (_mutableValidationResultLiveData.value) {
+    fun auth(username: String, password: String, usernameValidationResponse: CheckNameResponse) {
+        when (usernameValidationResponse) {
             CheckNameResponse.TAKEN -> {
                 login(username, password)
             }
@@ -49,21 +50,21 @@ class AuthViewModel @Inject constructor(
                 register(username, password)
             }
 
-            else -> {/* no-op */}
+            else -> {/* no-op */
+            }
         }
     }
 
     private fun login(username: String, password: String) {
-        viewModelScope.launch {
-            val result = loginUseCase.execute(username, password)
-            _mutableUserLiveData.postValue(result)
+        _mutableUserLiveData.loadData {
+            loginUseCase.execute(username, password)
         }
     }
 
     private fun register(username: String, password: String) {
-        viewModelScope.launch {
-            val result = registerUseCase.execute(username, password)
-            _mutableUserLiveData.postValue(result)
+        _mutableUserLiveData.loadData {
+            registerUseCase.execute(username, password)
+
         }
     }
 

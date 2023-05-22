@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
 import com.trubitsyna.homework.data.local.model.Image
-import com.trubitsyna.homework.databinding.ViewImagePostBinding
+import com.trubitsyna.homework.databinding.ViewImagePostItemBinding
 import com.trubitsyna.homework.presentaion.diffCallback.ImageDiffCallback
 import com.trubitsyna.homework.utils.getMaxSizeImageUrl
 import javax.inject.Inject
@@ -24,7 +24,7 @@ class ImageViewAdapter @Inject constructor() :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         return ImageViewHolder(
-            ViewImagePostBinding.inflate(
+            ViewImagePostItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -37,7 +37,7 @@ class ImageViewAdapter @Inject constructor() :
     }
 
     inner class ImageViewHolder(
-        private val binding: ViewImagePostBinding
+        private val binding: ViewImagePostItemBinding
     ) : ViewHolder(binding.root) {
         fun bind(item: Image) {
             with(binding) {

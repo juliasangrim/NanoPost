@@ -25,9 +25,9 @@ class ImageListViewModel @Inject constructor(
     private val _mutableUserIdLiveData = MutableLiveData<String?>()
     val userIdLiveData: LiveData<String?> = _mutableUserIdLiveData
 
-    fun loadImages(profileId: String, loadExceptionCallback: () -> Unit) {
+    fun loadImages(profileId: String) {
         viewModelScope.launch {
-            getProfileImagesUseCase.execute(profileId, loadExceptionCallback)
+            getProfileImagesUseCase.execute(profileId)
                 .cachedIn(viewModelScope)
                 .collect {
                     _mutableImageListLiveData.postValue(it)

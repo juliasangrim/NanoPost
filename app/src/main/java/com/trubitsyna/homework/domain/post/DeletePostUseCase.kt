@@ -6,7 +6,7 @@ import javax.inject.Inject
 class DeletePostUseCase @Inject constructor(
     private val postRepositoryImpl: PostRepository,
 ) {
-    suspend fun execute(postId: String) {
-        postRepositoryImpl.deletePost(postId)
+    suspend fun execute(postId: String): Boolean {
+        return postRepositoryImpl.deletePost(postId)
     }
 }

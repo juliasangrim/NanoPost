@@ -13,11 +13,13 @@ import androidx.core.app.NotificationManagerCompat
 import com.trubitsyna.homework.R
 import com.trubitsyna.homework.domain.content.GetContentUriUseCase
 import com.trubitsyna.homework.domain.post.CreatePostUseCase
+import com.trubitsyna.homework.utils.showToastError
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -64,8 +66,18 @@ class CreatePostService : Service(), CoroutineScope by MainScope() {
                 images?.filterNotNull()?.let { it1 -> Log.i("Service", it1.count().toString()) }
 
                 launch {
-                    createPostUseCase.execute(text, images?.filterNotNull())
-                    stopSelf()
+                    try {
+                        createPostUseCase.execute(text, images?.filterNotNull())
+
+                        this@CreatePostService.showToastError(R.string.creation_post_success)
+                        stopSelf()
+                    } catch (e: UnknownHostException) {
+                        this@CreatePostService.showToastError(R.string.error_msg_network)
+                        stopSelf()
+                    } catch (e: Throwable) {
+                        this@CreatePostService.showToastError(R.string.error_msg_create_post)
+                        stopSelf()
+                    }
                 }
             }
         }

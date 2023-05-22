@@ -10,7 +10,7 @@ class GetProfileImagesUseCase @Inject constructor(
     private val imageRepositoryImpl: ImageRepository
 ) {
 
-    fun execute(profileId: String, loadExceptionCallback: () -> Unit): Flow<PagingData<Image>> {
-        return imageRepositoryImpl.getProfileImages(profileId, loadExceptionCallback)
+    fun execute(profileId: String): Flow<PagingData<Image>> {
+        return imageRepositoryImpl.getProfileImages(profileId)
     }
 }

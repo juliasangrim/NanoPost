@@ -10,12 +10,10 @@ class GetProfilePostsUseCase @Inject constructor(
     private val postRepository: PostRepository,
 ) {
     fun execute(
-        profileId: String,
-        loadExceptionCallback: () -> Unit
+        profileId: String
     ): Flow<PagingData<Post>> {
         return postRepository.getProfilePosts(
-            profileId,
-            loadExceptionCallback
+            profileId
         )
     }
 }

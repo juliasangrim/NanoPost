@@ -6,6 +6,13 @@ fun TextInputLayout.showError(msg: String) {
     this.error = msg
 }
 
+fun TextInputLayout.enable() {
+    with(this) {
+        isFocusable = true
+        isEnabled = true
+    }
+}
+
 fun TextInputLayout.disable() {
     with(this) {
         isFocusable = false

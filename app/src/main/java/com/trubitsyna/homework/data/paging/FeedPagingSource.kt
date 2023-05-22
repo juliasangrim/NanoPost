@@ -7,7 +7,6 @@ import com.trubitsyna.homework.data.remote.model.ApiPost
 
 class FeedPagingSource constructor(
     private val apiService: NanoPostApiService,
-    private val loadExceptionCallback: () -> Unit
 ) : PagingSource<String, ApiPost>() {
     override fun getRefreshKey(
         state: PagingState<String, ApiPost>
@@ -29,7 +28,6 @@ class FeedPagingSource constructor(
                 prevKey = null
             )
         } catch (e: Exception) {
-            loadExceptionCallback()
             LoadResult.Error(e)
         }
     }

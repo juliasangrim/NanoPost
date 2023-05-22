@@ -6,7 +6,7 @@ import javax.inject.Inject
 class DeleteImageUseCase @Inject constructor(
     private val imageRepositoryImpl: ImageRepository,
 ) {
-    suspend fun execute(imageId: String) {
-        imageRepositoryImpl.deleteImage(imageId)
+    suspend fun execute(imageId: String): Boolean {
+        return imageRepositoryImpl.deleteImage(imageId)
     }
 }

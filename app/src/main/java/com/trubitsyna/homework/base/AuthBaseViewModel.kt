@@ -17,6 +17,7 @@ abstract class AuthBaseViewModel : ViewModel() {
         viewModelScope.launch {
             flow {
                 try {
+                    emit(AuthResult.Validate())
                     emit(AuthResult.Success(block()))
                 } catch (t: UnknownHostException) {
                     emit(AuthResult.NetworkError(t))

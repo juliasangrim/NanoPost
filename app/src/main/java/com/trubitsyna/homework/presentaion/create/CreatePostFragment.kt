@@ -2,8 +2,11 @@ package com.trubitsyna.homework.presentaion.create
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +17,7 @@ import com.trubitsyna.homework.databinding.FragmentCreatePostBinding
 import com.trubitsyna.homework.presentaion.adapter.ImageCreatePostViewAdapter
 import com.trubitsyna.homework.service.CreatePostService
 import com.trubitsyna.homework.utils.Constants
+import com.trubitsyna.homework.utils.doOnApplyWindowInsets
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -27,20 +31,37 @@ class CreatePostFragment : Fragment(R.layout.fragment_create_post) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.root.doOnApplyWindowInsets { view, insets, padding ->
+            val topPadding = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
+            view.updatePadding(
+                top = padding.top + topPadding
+            )
+            insets
+        }
         with(binding) {
             with(toolbarNewPost) {
                 setOnMenuItemClickListener { menuItem ->
                     when (menuItem.itemId) {
                         R.id.createPost -> {
-                            requireContext().startService(
-                                CreatePostService.newIntent(requireContext(),
+                            if (binding.editTextAddPost.text.toString().isNotBlank()
+                                || imageCreatePostViewAdapter.currentList.isNotEmpty()
+                            ) {
+                                val serviceIntent = CreatePostService.newIntent(requireContext(),
                                     binding.editTextAddPost.text.toString(),
                                     imageCreatePostViewAdapter.currentList.map { image ->
                                         image.uri
-                                    }
+                                    })
+                                requireContext().startService(
+                                    serviceIntent
                                 )
-                            )
-                            findNavController().popBackStack()
+                                findNavController().popBackStack()
+                            } else {
+                                Toast.makeText(
+                                    requireContext(),
+                                    getString(R.string.error_msg_empty_post),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                             true
                         }
 
@@ -63,7 +84,7 @@ class CreatePostFragment : Fragment(R.layout.fragment_create_post) {
                     if (uris.isNotEmpty()) {
                         val listUris = uris.map { uri -> ImageUri(uri = uri) }.toMutableList()
                         imageCreatePostViewAdapter.submitList(
-                            listUris.subList(0, Constants.MAX_IMAGE_ITEM)
+                            listUris.take(Constants.MAX_IMAGE_ITEM)
                         )
                     }
                 }

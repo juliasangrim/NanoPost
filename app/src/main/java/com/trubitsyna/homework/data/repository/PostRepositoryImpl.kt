@@ -20,15 +20,12 @@ class PostRepositoryImpl @Inject constructor(
     private val nanoPostApiService: NanoPostApiService,
     private val mapper: PostMapper
 ) : PostRepository {
-    override fun getFeed(
-        loadExceptionCallback: () -> Unit
-    ): Flow<PagingData<Post>> {
+    override fun getFeed(): Flow<PagingData<Post>> {
         return Pager(
             config = PagingConfig(30, enablePlaceholders = false),
             pagingSourceFactory = {
                 FeedPagingSource(
-                    nanoPostApiService,
-                    loadExceptionCallback
+                    nanoPostApiService
                 )
             }
         ).flow.map { value ->
@@ -39,16 +36,14 @@ class PostRepositoryImpl @Inject constructor(
     }
 
     override fun getProfilePosts(
-        profileId: String,
-        loadExceptionCallback: () -> Unit
+        profileId: String
     ): Flow<PagingData<Post>> {
         return Pager(
             config = PagingConfig(30, enablePlaceholders = false),
             pagingSourceFactory = {
                 PostsPagingSource(
                     profileId,
-                    nanoPostApiService,
-                    loadExceptionCallback
+                    nanoPostApiService
                 )
             }
         ).flow.map { value ->
@@ -107,7 +102,7 @@ class PostRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun deletePost(postId: String) {
-        nanoPostApiService.deletePost(postId)
+    override suspend fun deletePost(postId: String): Boolean {
+        return nanoPostApiService.deletePost(postId).result
     }
 }

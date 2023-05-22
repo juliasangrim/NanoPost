@@ -15,14 +15,14 @@ import javax.inject.Inject
 @HiltViewModel
 class FeedViewModel @Inject constructor(
     private val getFeedUseCase: GetFeedUseCase,
-): ViewModel() {
+) : ViewModel() {
 
     private val _mutablePostLiveData = MutableLiveData<PagingData<Post>>()
     val postLivaData: LiveData<PagingData<Post>> = _mutablePostLiveData
 
-    fun loadFeed(loadExceptionCallback: () -> Unit) {
+    fun loadFeed() {
         viewModelScope.launch {
-            getFeedUseCase.execute(loadExceptionCallback)
+            getFeedUseCase.execute()
                 .cachedIn(viewModelScope)
                 .collect {
                     _mutablePostLiveData.postValue(it)
